@@ -13,5 +13,6 @@
     <ClCompile Include="ASIO.cpp" />
     <ClCompile Include="Filesystem.cpp" />
     <ClCompile Include="Endian.cpp" />
+    <ClCompile Include="Chrono.cpp" />
   </ItemGroup>
 </Project>
