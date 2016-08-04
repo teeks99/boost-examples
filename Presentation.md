@@ -219,85 +219,61 @@ String Algorithms
 *   ...More
 *   The [quick-reference page](http://www.boost.org/doc/libs/1_61_0/doc/html/string_algo/quickref.html) has a great list
 
-Lexical Cast
-============
+Function/Bind
+=============
+*   Function - Replacement for C-style function pointers
+*   Compatible with
+    *   C-Style function pointer
+    *   C++ Function Object (Callable)
+    *   Bind’ed member functions
+*   Bind – allows a member function to be called like a free function
+*   Both have corresponding elements in C++11, but the syntax differs.
 
-*   Convert Strings and Numbers
-*   Avoid pitfalls of C (atoi, atof)
-*   Much simpler than << with stringstream for number -> string, more secure than sprintf.
+ASIO
+====
+*   Asynchronous (or Synchronous) Input/Output
+    *   Cross Platform
+*   Net: TCP, UDP, ICMP
+*   Serial Port
+*   Timers
+*   Signals
+*   Unix Specific: Sockets, File Descriptors
+*   Windows Specific: Stream, Random, Object Handles
 
-Example:
+Filesystem
+==========
+*   Work with the files/directories accessible to the system
+    *   Will be in C++17
+*   Paths – create to any file directory
+    *   Absolute or relative
+    *   Get parts of path (root, stem, extension, etc)
+    *   Determineermin if path is file, directory, or link
+*   File status: permissions, size, read/write times
+*   Manipulate
+    *   Create (dirs), copy, rename, remove
+*   Symlinks/hardlinks (if supported)
+*   Iterate directory contents (recursive option)
 
-    #include <boost/lexical_cast.hpp>
-    using namespace boost;
+Endian
+======
+*   Convert between big and little
+*   Automatically detects native order
+*   Functions for conversion
+    *   native_to_big(value), big_to_native(value)
+*   Data types for local storage
+    *   E.g. use big_int32_t my_val = 0x01020304; to store as 0x04030201 in memory, on a little endian machine
 
-    void LexicalCast()
-    {
-       short val1 = lexical_cast<short>("12345");
-       double val2 = lexical_cast<double>("1.23e4");
-       std::string val3 = lexical_cast<std::string>(12345);
-       std::string val4 = lexical_cast<std::string>(1.23e4);
-
-       std::string embedded = "cut me 123";
-       int val5 = lexical_cast<int>(embedded.data() + 7, 3);
-    }
-
-Circular Buffer
+Chrono/DateTime
 ===============
-
-*   Simple Data Structure
-*   Specify the maximum size
-*   Add values
-    *   Overwrite if buffer is full
-    
-Example:
-
-    circular_buffer<int> cb(3);
-    cb.push_back(1);
-    cb.push_back(2);
-    cb.push_back(3);
-    // 1 == cb[0] == cb.front()
-    // 3 == cb[2] == cb.back()
-
-    cb.push_back(4);
-    // 4 == cb[0] == cb.back()
-    // 2 == cb[1] == cb.front()
-
-    cb.pop_front();
-    // 3 == cb[2] == cb.front()
-
-    cb.pop_back();
-    // 3 == cb[2] == cb.front() == cb.back()
-
-Tokenizer
-=========
-
-*   Splits a string into tokens
-    *   Words from a sentence
-    *   Values from a CSV line
-    
-Example:
-
-    std::string input = "This is a test-ish line";
-    tokenizer<> tokens(input);
-    std::string output = "";
-    for (auto t = tokens.begin(); t != tokens.end(); t++) {
-        output += *t + "_";
-    }
-    // output == "This_is_a_test_ish_line_"
-
-String Algorithms
-=================
-
-*   Change Case
-*   Trim Space
-*   String contains another
-*   Find a substring
-*   Replace/Erase substring
-*   Split
-*   Join
-*   ...More
-*   The [quick-reference page](http://www.boost.org/doc/libs/1_61_0/doc/html/string_algo/quickref.html) has a great list
+*   Chrono matches C++11’s Chrono (VS 2012, GCC 4.7) 
+    *   Clock, TimePoint, Duration
+    *   System Clock or Steady Clock (replaces QueryPerformanceCounter)
+    *   Includes some process/thread clocks not in C++11
+*   DateTime - Some overlap with Chrono, many more features
+    *   More POSIX compliant (100% windows compatible)
+    *   Timezones - uses tzdata
+    *   Calendars
+    *   Serialization/Deserialization of dates and times 
 
 Math
 ====
